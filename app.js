@@ -1,8 +1,16 @@
 const express = require("express");
 const Notification = require("./notifications.js")
+const GenerateToken = require("./generateToken.js") // only needed if you want to generate your own tokens
 
 const app = express();
 
+// Only use it to generate Access Token for Firebase Notifications using Http v1
+GenerateToken.getAccessToken()
+    .then((token) => console.log("This token expires in 1 hour: " + token))
+    .catch((err) => console.log("Error: ", err))
+
+
+// This is to send notifications using node and express
 app.get("/one-user", function(req, res) {
     // Here you could receive the token id, titulo and mensage, in this case all these params are already hardcoded
     res.send("Sending Notification to One user...");
